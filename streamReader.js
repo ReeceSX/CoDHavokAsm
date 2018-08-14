@@ -19,7 +19,7 @@ Reader.prototype.readCString		= function() {
 	var str 	= undefined;
 	length = this.buffer.readUInt32LE(this.index);
 	this.index += 4;
-	if (!length) return;
+	if (!length) return "";
 	str = this.buffer.slice(this.index, this.index + length - 1).toString('utf8');
 	this.index += length;
 	return str;

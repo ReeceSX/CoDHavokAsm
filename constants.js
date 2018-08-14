@@ -11,6 +11,8 @@ function TypeTNIL() {
 TypeTNIL.id = 0;
 TypeTNIL.tname = "TNIL";
 TypeTNIL.prototype.dump				= function () {};
+TypeTNIL.prototype.fromString		= function () {};
+TypeTNIL.prototype.toString			= function () { return ""};
 TypeTNIL.prototype.undump			= function () {};
 
 function TypeTBOOLEAN() {
@@ -21,6 +23,12 @@ function TypeTBOOLEAN() {
 
 TypeTBOOLEAN.id = 1;
 TypeTBOOLEAN.tname = "TBOOLEAN";
+TypeTBOOLEAN.prototype.toString		= function() {
+	return this.value.toString();
+}
+TypeTBOOLEAN.prototype.fromString	= function(str) {
+	this.value = str == "true"; 
+}
 TypeTBOOLEAN.prototype.dump			= function (writer, ctx) { 
 	writer.writeUByte(this.value ? 1 : 0);
 }
@@ -47,6 +55,12 @@ function TypeTNUMBER() {
 
 TypeTNUMBER.id = 3;
 TypeTNUMBER.tname = "TNUMBER";
+TypeTNUMBER.prototype.toString		= function() {
+	return this.value.toString();
+}
+TypeTNUMBER.prototype.fromString	= function(str) {
+	this.value = parseFloat(str); 
+}
 TypeTNUMBER.prototype.dump			= function (writer, ctx) { 
 	writer.writeNumber(this.value);
 }
@@ -62,6 +76,12 @@ function TypeTSTRING() {
 
 TypeTSTRING.id = 4;
 TypeTSTRING.tname = "TSTRING";
+TypeTSTRING.prototype.toString		= function() {
+	return this.value; 
+}
+TypeTSTRING.prototype.fromString	= function(str) {
+	this.value = str; 
+}
 TypeTSTRING.prototype.dump			= function (writer, ctx) { 
 	writer.writeCString(this.value);
 }
@@ -154,7 +174,20 @@ TypeTSTRUCT.prototype.dump			= notImpl;
 TypeTSTRUCT.prototype.undump		= notImpl;
 			
 module.exports = {
-	byId:  {	0: TypeTNIL, 1: TypeTBOOLEAN, 2: TypeTLIGHTUSERDATA, 3: TypeTNUMBER, 4: TypeTSTRING, 5: TypeTTABLE, 
-				6: TypeTFUNCTION, 7: TypeTUSERDATA, 8: TypeTTHREAD, 9: TypeTIFUNCTION, 10: TypeTCFUNCTION, 11: TypeTUI64, 12: TypeTSTRUCT	},
-	list: [TypeTNIL, TypeTBOOLEAN, TypeTLIGHTUSERDATA, TypeTNUMBER, TypeTSTRING, TypeTTABLE, TypeTFUNCTION, TypeTUSERDATA, TypeTTHREAD, TypeTIFUNCTION, TypeTCFUNCTION, TypeTUI64, TypeTSTRUCT]
+	byId:  {	0: TypeTNIL, 		1: TypeTBOOLEAN, 	2: TypeTLIGHTUSERDATA, 	3: TypeTNUMBER, 	4: TypeTSTRING, 	5: TypeTTABLE, 
+				6: TypeTFUNCTION, 	7: TypeTUSERDATA, 	8: TypeTTHREAD, 		9: TypeTIFUNCTION, 10: TypeTCFUNCTION, 11: TypeTUI64, 
+				12: TypeTSTRUCT	},
+	list: [	TypeTNIL,
+			TypeTBOOLEAN, 
+			TypeTLIGHTUSERDATA,
+			TypeTNUMBER,
+			TypeTSTRING,
+			TypeTTABLE,
+			TypeTFUNCTION,
+			TypeTUSERDATA,
+			TypeTTHREAD,
+			TypeTIFUNCTION,
+			TypeTCFUNCTION,
+			TypeTUI64,
+			TypeTSTRUCT	]
 };

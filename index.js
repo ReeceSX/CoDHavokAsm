@@ -6,6 +6,7 @@ const insts			= require("./instructions.js");
 const fmt			= require("util").format;
 const process		= require("process");
 const dasm			= require("./asm/disassembler.js");
+const asm			= require("./asm/assembler.js");
 
 function Header(ctx) {
 	this.magic				= undefined;
@@ -60,6 +61,8 @@ Header.prototype.read = function() {
 			return false;
 		}
 	}
+	
+	return true;
 }
 
 Header.prototype.write = function(ctx) {
@@ -142,14 +145,13 @@ function Constants(ctx, method) {
 	this.ctx	= ctx;
 	this.method	= method;
 	
-	this.size = 0;
 	this.objs = [];
 }
 
 Constants.prototype.read = function() {
-	this.size = this.ctx.reader.readMachine();
+	var size = this.ctx.reader.readMachine();
 	
-	for (var i = 0; i < this.size; i++) {
+	for (var i = 0; i < size; i++) {
 		//console.log("reading constant at " + this.ctx.reader.index);
 		var id = this.ctx.reader.readUByte();
 		var type = consts.byId[id];
@@ -168,7 +170,7 @@ Constants.prototype.read = function() {
 }
 
 Constants.prototype.write = function() {
-	this.ctx.writer.writeMachine(this.size);
+	this.ctx.writer.writeMachine(this.objs.length);
 	this.objs.forEach((obj) => {
 		this.ctx.writer.writeUByte(obj.id);
 		obj.dump(this.ctx.writer, this.ctx);
@@ -306,7 +308,19 @@ Context.prototype.disassembleFile = function(file) {
 	fio.writeFileSync(file, buffer.msg);
 }
 
+Context.prototype.assemble = function(str) {
+	asm.asmContext(str, this);
+}
+
+Context.prototype.assembleFile = function(file) {
+	this.assemble(fio.readFileSync(file, "utf8"));
+}
+
 module.exports = {
 	Context: Context,
+	Method: Method,
+	Constants: Constants,
+	Debug: Debug,
+	Header: Header,
 	constants: consts
 }

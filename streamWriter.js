@@ -90,10 +90,20 @@ Writer.prototype.writeInstruction	= function(int) {
 	this.expand(this.ctx.header.instructionSize);
 	
 	if (this.ctx.header.instructionSize == 4) {
-		if (this.ctx.header.isLE)
-			this.buffer.writeUInt32LE(int, this.index);
-		else
-			this.buffer.writeUInt32BE(int, this.index);
+		// TODO: reece
+		// while encoding, our javascript impl may return negative numbers 
+		// this is because javascript wants to read the result as a signed integer rather than our preferred unsigned variant 
+		if (int < 0) {
+			if (this.ctx.header.isLE)
+				this.buffer.writeInt32LE(int, this.index);
+			else
+				this.buffer.writeInt32BE(int, this.index);
+		} else {
+			if (this.ctx.header.isLE)
+				this.buffer.writeUInt32LE(int, this.index);
+			else
+				this.buffer.writeUInt32BE(int, this.index);
+		}
 		this.index += 4;
 		return;
 	}

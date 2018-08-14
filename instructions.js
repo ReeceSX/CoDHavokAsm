@@ -1,5 +1,6 @@
-const 	opcodes			= require("./instructions_a.js");
-var 	instructionById = {};
+const 	opcodes				= require("./instructions_a.js");
+var 	instructionById 	= {};
+var 	instructionByName	= {};
 
 const e_iABC			= 0;
 const e_iABx			= 1;
@@ -11,6 +12,10 @@ const itypes			= {	"iABC": 	e_iABC,
 
 opcodes.forEach((obj) => {
 	instructionById[obj.opcode] = obj;
+});
+
+opcodes.forEach((obj) => {
+	instructionByName[obj.name] = obj;
 });
 
 function getOp(code) {
@@ -69,5 +74,6 @@ module.exports = {
 	decodeAsBx:			decodeAsBx,
 	instructions:		opcodes,
 	instructionById:	instructionById,
+	instructionByName:	instructionByName,
 	instructionTypes:	itypes
 };
