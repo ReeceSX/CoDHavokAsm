@@ -110,7 +110,6 @@ function dmpHeader(_, level, header) {
 	append(_, level, fmt("SIZE_T       %i", header.machineSize));	
 	level--;
 	append(_, level, "END_NUMBER_SIZES");
-	append(_, level, fmt("UNK\t\t%i", header.unkByte));
 	append(_, level, fmt("FLAGS\t%i", header.platformFlags));
 	append(_, level, fmt("TYPES\t%i", header.numOfTypes));
 	append(_, level, fmt("SHARE\t%s", header.share ? "true" : "false"));

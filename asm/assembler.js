@@ -135,7 +135,8 @@ function handleHeader(buffer, context) {
 	
 	if (buffer.peakKey() == "UNK") {
 		//TODO assert
-		context.header.unkByte = buffer.next()[1].number.value;
+		// DEPRECATED
+		//context.header.unkByte = buffer.next()[1].number.value;
 		return handleHeader(buffer, context);
 	}
 	
@@ -219,10 +220,8 @@ function handleMethodCode(buffer, context, opcodes) {
 		if (Object.keys(insts.instructionTypes).indexOf(nxt[0].raw) != -1)
 			nxt.shift(); 
 		
-	//	console.log(nxt[0].raw)
 		var instruction = insts.instructionByName[nxt[0].raw];
 		nxt.shift(); 
-		//console.log(instruction)
 		
 		if (instruction.type == insts.instructionTypes.iABC) {
 			opcodes.push(insts.encodeABC(instruction.opcode, nxt[0].number.value, nxt[1].number.value, nxt[2].number.value));
@@ -247,6 +246,7 @@ function handleMethod(buffer, context, method) {
 			return false;
 		return handleMethod(buffer, context, method);
 	}
+	
 	if (buffer.peakKey() == "START_CONSTANTS") {
 		if (!readBlock(buffer, context, "CONSTANTS", handleMethodConstants, method.constants))
 			return false;
@@ -264,7 +264,6 @@ function handleMethod(buffer, context, method) {
 			return false;
 		return handleMethod(buffer, context, method);
 	}
-	
 	
 	if (buffer.peakKey() == "FLAGS") {
 		//TODO assert
@@ -290,7 +289,6 @@ function handleMethod(buffer, context, method) {
 		return handleMethod(buffer, context, method);
 	}
 	
-
 	return true;
 }
 
@@ -299,6 +297,7 @@ function handleScript(buffer, context) {
 		readBlock(buffer, context, "HEADER", handleHeader);
 		return handleScript(buffer, context);
 	}
+	
 	if (buffer.peakKey() == "START_METHOD") {
 		readBlock(buffer, context, "METHOD", handleMethod, context.mainMethod);
 		return handleScript(buffer, context);

@@ -51,6 +51,18 @@ module.exports =
 	
 	
 	{name: "HKS_OPCODE_SELF" 							, opcode: 0x8 	, type: e_iABC },  // 
+	/*
+	
+		R1 						= dest_r1
+		a		= R[a]			= dest_a
+		a_one	= R[a + 1]		= dest_a_one
+		b		= R[b]			= table 
+		c		= RK[c]			= key
+		
+		dest_a_one   = table
+		dest_a 	= table[key]
+		dest_r1 = dest_a
+	*/
 	{name: "HKS_OPCODE_RETURN" 							, opcode: 0x9 	, type: e_iABC },
 	
 	{name: "HKS_OPCODE_GETTABLE" 						, opcode: 0xC 	, type: e_iABC },

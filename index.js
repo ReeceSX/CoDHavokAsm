@@ -17,7 +17,6 @@ function Header(ctx) {
 	this.instructionSize	= 4;
 	this.machineSize		= 4;
 	this.numberSize			= 4;
-	this.unkByte			= 0;
 	this.platformFlags		= 0;	
 	this.numOfTypes 		= 13;
 	this.sharingMode		= 0; // sharing mode (0 - none, 1 - shared, 2 - secure) ? 1 : 0
@@ -28,7 +27,6 @@ Header.prototype.read = function() {
 	var buffer = this.ctx.reader.readBytes(false, 14);
 	this.magic = buffer.readUInt32LE();
 	this.version = buffer.readUInt8(4);
-	this.unkByte = buffer.readUInt8(8);
 	this.platformFlags = buffer.readUInt8(12);  // extensions etc
 	
 	this.intSize = buffer.readUInt8(7);         // sizeOfInt
@@ -322,5 +320,6 @@ module.exports = {
 	Constants: Constants,
 	Debug: Debug,
 	Header: Header,
-	constants: consts
+	constants: consts,
+	instructions: insts
 }
