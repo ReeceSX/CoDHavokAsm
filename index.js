@@ -177,13 +177,13 @@ Constants.prototype.write = function() {
 
 function Method(ctx) {
     this.ctx        = ctx;
-    this.debug        = new Debug(ctx, this);
-    this.constants    = new Constants(ctx, this);
+    this.debug      = new Debug(ctx, this);
+    this.constants  = new Constants(ctx, this);
     this.upvals     = 0;
     this.params     = 0;
-    this.flags         = 0;
-    this.registers    = 0;
-    this.code        = [];
+    this.flags      = 0;
+    this.registers  = 0;
+    this.code       = [];
     this.decoded    = [];
     this.closures   = [];
 }
@@ -191,21 +191,21 @@ function Method(ctx) {
 Method.prototype.read = function() {
     this.upvals     = this.ctx.reader.readInteger();
     this.params     = this.ctx.reader.readInteger();
-    this.flags         = this.ctx.reader.readUByte();
-    this.registers    = this.ctx.reader.readInteger();
+    this.flags      = this.ctx.reader.readUByte();
+    this.registers  = this.ctx.reader.readInteger();
     
     if (this.ctx.header.sharingMode) {
         console.log("illegal sharing mode");
         return;
     }
     
-    this.code        = this.ctx.reader.readVectorDWORD();
+    this.code = this.ctx.reader.readVectorDWORD();
     this.parseInstructions();
 
     this.constants.read();
     this.debug.read();
 
-    var items        = this.ctx.reader.readInteger();
+    var items = this.ctx.reader.readInteger();
 
     for (var i = 0; i < items; i++){
         var methods = new Method(this.ctx);
