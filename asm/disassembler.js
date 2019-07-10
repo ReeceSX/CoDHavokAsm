@@ -104,10 +104,10 @@ function dmpHeader(_, level, header) {
 	append(_, level, fmt("LENDIAN\t%s", header.isLE ? "true" : "false"));
 	append(_, level, "START_NUMBER_SIZES");
 	level++;
-	append(_, level, fmt("NUMBER       %i", header.numberSize));	
-	append(_, level, fmt("INTEGER      %i", header.intSize));
+	append(_, level, fmt("NUMBER	   %i", header.numberSize));	
+	append(_, level, fmt("INTEGER	  %i", header.intSize));
 	append(_, level, fmt("INSTRUCTION  %i", header.instructionSize));	
-	append(_, level, fmt("SIZE_T       %i", header.machineSize));	
+	append(_, level, fmt("SIZE_T	   %i", header.machineSize));	
 	level--;
 	append(_, level, "END_NUMBER_SIZES");
 	append(_, level, fmt("FLAGS\t%i", header.platformFlags));

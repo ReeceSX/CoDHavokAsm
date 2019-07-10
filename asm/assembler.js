@@ -9,11 +9,11 @@ function parseLine(line) {
 		line = line.substring(0, line.indexOf(';'));
 	
 	var objs = line.split("\t").join(" ")  // convert tabs into spaces
-				.split(",").join(" ")      // convert ,'s into spaces
+				.split(",").join(" ")	   // convert ,'s into spaces
 				.split(":").join("") // get rid of optional :'s 
 				.split("(").join("") // get rid of optional brackets
 				.split(")").join("") // get rid of optional brackets
-				.split(" ");         // split 
+				.split(" ");		 // split 
 	
 	var hack = false;
 	

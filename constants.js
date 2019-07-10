@@ -118,7 +118,7 @@ function TypeTUSERDATA() {
 }
 
 TypeTUSERDATA.id = 7;
-TypeTUSERDATA.tname = "TUSERDATA";             // userdata = unstructured native buffer
+TypeTUSERDATA.tname = "TUSERDATA";			 // userdata = unstructured native buffer
 TypeTUSERDATA.prototype.dump		= notImpl; // userdata = unstructured native buffer
 TypeTUSERDATA.prototype.undump		= notImpl; // userdata = unstructured native buffer
 
