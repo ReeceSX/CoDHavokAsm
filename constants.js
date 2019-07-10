@@ -4,8 +4,8 @@ function notImpl(reader) {
 
 function TypeTNIL() {
     this.value = undefined;
-    this.tname    = TypeTNIL.tname;
-    this.id        = TypeTNIL.id;
+    this.tname = TypeTNIL.tname;
+    this.id    = TypeTNIL.id;
 }
 
 TypeTNIL.id = 0;
@@ -17,8 +17,8 @@ TypeTNIL.prototype.undump     = function () {};
 
 function TypeTBOOLEAN() {
     this.value = undefined;
-    this.tname    = TypeTBOOLEAN.tname;
-    this.id        = TypeTBOOLEAN.id;
+    this.tname = TypeTBOOLEAN.tname;
+    this.id    = TypeTBOOLEAN.id;
 }
 
 TypeTBOOLEAN.id = 1;
@@ -38,8 +38,8 @@ TypeTBOOLEAN.prototype.undump = function (reader, ctx) {
 
 function TypeTLIGHTUSERDATA() {
     this.value = undefined;
-    this.tname    = TypeTLIGHTUSERDATA.tname;
-    this.id        = TypeTLIGHTUSERDATA.id;
+    this.tname = TypeTLIGHTUSERDATA.tname;
+    this.id    = TypeTLIGHTUSERDATA.id;
 }
 
 TypeTLIGHTUSERDATA.id = 2;
@@ -49,8 +49,8 @@ TypeTLIGHTUSERDATA.prototype.undump = notImpl;
 
 function TypeTNUMBER() {
     this.value = undefined;
-    this.tname    = TypeTNUMBER.tname;
-    this.id        = TypeTNUMBER.id;
+    this.tname = TypeTNUMBER.tname;
+    this.id    = TypeTNUMBER.id;
 }
 
 TypeTNUMBER.id = 3;
@@ -70,8 +70,8 @@ TypeTNUMBER.prototype.undump = function (reader, ctx) {
 
 function TypeTSTRING() {
     this.value = undefined;
-    this.tname    = TypeTSTRING.tname;
-    this.id        = TypeTSTRING.id;
+    this.tname = TypeTSTRING.tname;
+    this.id    = TypeTSTRING.id;
 }
 
 TypeTSTRING.id = 4;
