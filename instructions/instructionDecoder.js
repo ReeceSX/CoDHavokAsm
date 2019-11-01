@@ -1,5 +1,3 @@
-const   opcodes            = require("./instructions_a.js");
-
 const e_iABC  = 0;
 const e_iABx  = 1;
 const e_iAsBx = 2;
@@ -7,17 +5,6 @@ const e_iAsBx = 2;
 const itypes = {    "iABC":     e_iABC, 
                     "iABx":     e_iABx,
                     "iAsBx":    e_iAsBx    };
-
-var     instructionById    = {};
-var     instructionByName  = {};
-
-opcodes.forEach((obj) => {
-    instructionById[obj.opcode] = obj;
-});
-
-opcodes.forEach((obj) => {
-    instructionByName[obj.name] = obj;
-});
 
 function getOp(code) {
     return (code >>> 25) & 0x7f;
@@ -66,15 +53,12 @@ function decodeAsBx(code) {
 }
 
 module.exports = {
-    getOp:                getOp,
-    encodeABC:            encodeABC,
-    decodeABC:            decodeABC,
-    encodeABx:            encodeABx,
-    decodeABx:            decodeABx,
-    encodeAsBx:            encodeAsBx,
-    decodeAsBx:            decodeAsBx,
-    instructions:        opcodes,
-    instructionById:    instructionById,
-    instructionByName:    instructionByName,
-    instructionTypes:    itypes
+    getOp:      getOp,
+    encodeABC:  encodeABC,
+    decodeABC:  decodeABC,
+    encodeABx:  encodeABx,
+    decodeABx:  decodeABx,
+    encodeAsBx: encodeAsBx,
+    decodeAsBx: decodeAsBx,
+    instructionTypes: itypes
 };

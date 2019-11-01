@@ -1,5 +1,3 @@
-const iset = require("./instructions.js");
-
 function Reader(buffer, ctx) {
     this.buffer = buffer;
     this.index = 0;
@@ -64,45 +62,50 @@ Reader.prototype.readNumber = function(peak) {
 }
 
 Reader.prototype.readMachine = function(peak) {
-    if (this.ctx.header.machineSize == 4) {
-        var i = this.ctx.header.isLE ? this.buffer.readUInt32LE(this.index) : this.buffer.readUInt32BE(this.index);
-        if (peak)
-            return i;
-        this.index += 4;
-        return i;
-    } 
-    
-    //TODO:
-    console.log("int64 not supported");
-    return -203;
+	if (this.ctx.header.machineSize == 4) {
+        return this.consumeInt32(peak);
+    } else if (this.ctx.header.machineSize == 8) {
+		return this.consumeInt64(peak);
+	} else {
+		return -420;
+	}
 }
 
 Reader.prototype.readInstruction = function(peak) {
-    if (this.ctx.header.instructionSize == 4) {
-        var i = this.ctx.header.isLE ? this.buffer.readUInt32LE(this.index) : this.buffer.readUInt32BE(this.index);
-        if (peak)
-            return i;
-        this.index += 4;
-        return i;
-    }
-    
-    //TODO:
-    console.log("int64 not supported");
-    return -203;
+	if (this.ctx.header.instructionSize == 4) {
+        return this.consumeInt32(peak);
+    } else if (this.ctx.header.instructionSize == 8) {
+		return this.consumeInt64(peak);
+	} else {
+		return -420;
+	}
 }
 
 Reader.prototype.readInteger = function(peak) {
     if (this.ctx.header.intSize == 4) {
-        var i = this.ctx.header.isLE ? this.buffer.readInt32LE(this.index) : this.buffer.readInt32BE(this.index);
-        if (peak)
-            return i;
-        this.index += 4;
-        return i;
-    }
-    
-    //TODO:
-    console.log("int64 not supported");
-    return -203;
+        return this.consumeInt32(peak);
+    } else if (this.ctx.header.intSize == 8) {
+		return this.consumeInt64(peak);
+	} else {
+		return -420;
+	}
+}
+
+Reader.prototype.consumeInt64 = function(peak) {
+	var lo = this.buffer.readInt32LE(this.index);
+	this.index += 4;
+	var hi = this.buffer.readInt32LE(this.index);
+	this.index += 4;
+	if (peak)
+		this.index -= 8;
+	return BigInt(hi) << 32n | lo;
+}
+
+Reader.prototype.consumeInt32 = function(peak) {
+	var lo = this.ctx.header.isLE ? this.buffer.readUInt32LE(this.index) : this.buffer.readUInt32BE(this.index);
+	if (!peak)
+		this.index += 4;
+	return lo;
 }
 
 Reader.prototype.readVectorDWORD = function(peak) {
@@ -113,6 +116,5 @@ Reader.prototype.readVectorDWORD = function(peak) {
         buffer[i] = this.readInstruction();
     return buffer;
 }
-
 
 module.exports = Reader;

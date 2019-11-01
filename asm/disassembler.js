@@ -1,5 +1,5 @@
 const consts		= require("./../constants.js");
-const insts			= require("./../instructions.js");
+const insts			= require("./../instructions/instructions.js");
 const fmt			= require("util").format;
 
 function append(_, level, str) {
