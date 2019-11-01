@@ -1,5 +1,5 @@
-const decoder   = require("./instructions/instructionDecoder.js");
-const ops       = require("./instructions/instructions.js");
+const decoder   = require("./../instructions/instructionDecoder.js");
+const ops       = require("./../instructions/instructions.js");
 const fmt       = require("util").format;
 
 const Constants = require("./T6Constants.js");

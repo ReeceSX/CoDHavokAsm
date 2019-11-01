@@ -37,14 +37,13 @@ Header.prototype.read = function() {
     for (var i in this.ctx.types.list) {
         var type = this.ctx.types.list[i];
         var id = this.ctx.reader.readInteger();
-        if (id != type.id)
-        {
+        if (id != type.id){
             console.log(fmt("illegal type index %i expected: %s (%i)", id, type.id, type.name));
             return false;
         }
+		
         var str = this.ctx.reader.readCString();
-        if (str != type.tname)
-        {
+        if (str != type.tname){
             console.log(fmt("illegal type name %s expected: %s", str, type.tname));
             return false;
         }
