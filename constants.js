@@ -177,7 +177,7 @@ module.exports = {
     byId:  {    0: TypeTNIL,      1: TypeTBOOLEAN,  2: TypeTLIGHTUSERDATA,  3: TypeTNUMBER,     4: TypeTSTRING,     5: TypeTTABLE, 
                 6: TypeTFUNCTION, 7: TypeTUSERDATA, 8: TypeTTHREAD,         9: TypeTIFUNCTION, 10: TypeTCFUNCTION, 11: TypeTUI64, 
                 12: TypeTSTRUCT    },
-    list: [    TypeTNIL,
+    list: [ TypeTNIL,
             TypeTBOOLEAN, 
             TypeTLIGHTUSERDATA,
             TypeTNUMBER,
